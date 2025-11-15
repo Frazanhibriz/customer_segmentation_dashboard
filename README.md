@@ -45,6 +45,14 @@ customer_segmentation_dashboard/
 
 ---
 
+This dashboard is built using the clustering results from the main analysis project.
+
+Full modelling workflow, notebooks, and analytical documentation:  
+👉 **Customer Segmentation & Behavioral Analysis**  
+https://github.com/Frazanhibriz/hotel_booking_user_segmentation
+
+---
+
 ## ▶️ Run Locally
 
 ```bash
@@ -52,9 +60,3 @@ pip install -r requirements.txt
 streamlit run app.py
 
 ---
-
-This dashboard is built using the clustering results from the main analysis project.
-
-Full modelling workflow, notebooks, and analytical documentation:  
-👉 **Customer Segmentation & Behavioral Analysis**  
-https://github.com/Frazanhibriz/hotel_booking_user_segmentation
