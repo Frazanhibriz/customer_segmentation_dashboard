@@ -47,5 +47,6 @@ https://github.com/Frazanhibriz/hotel_booking_user_segmentation
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+```
 
 ---
