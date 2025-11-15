@@ -34,17 +34,6 @@ It helps visualize:
 
 ---
 
-## 📁 Project Structure
-
-customer_segmentation_dashboard/
-│── app.py
-│── requirements.txt
-│── data/
-│ └── user_features_with_clusters.csv
-│── README.md
-
----
-
 This dashboard is built using the clustering results from the main analysis project.
 
 Full modelling workflow, notebooks, and analytical documentation:  
