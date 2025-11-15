@@ -23,7 +23,7 @@ st.markdown("""
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("/Users/hibrizi/Project/hotel-segmentation-dashboard/data/user_features_with_clusters.csv")
+    return pd.read_csv("data/user_features_with_clusters.csv")
 
 df = load_data()
 
