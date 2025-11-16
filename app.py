@@ -54,6 +54,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("Developed by **Falah R. Hibrizi** 🔥")
 
 
+
 if page == "Home":
     st.title("📊 Customer Segmentation Dashboard")
     st.markdown("Explore behavioral patterns and key characteristics across customer segments.")
@@ -64,18 +65,31 @@ if page == "Home":
     col3.metric("Avg ADR", f"{df.mean_adr.mean():.2f}")
     col4.metric("Avg Engagement", f"{df.engagement_score.mean():.2f}")
 
-
     st.markdown("### 👥 Cluster Size Distribution")
-    cluster_counts = df["cluster_name"].value_counts()
+    cluster_counts = df["cluster_name"].value_counts().reset_index()
+    cluster_counts.columns = ["cluster_name", "count"]
 
     fig = px.bar(
         cluster_counts,
-        text=cluster_counts.values,
-        color=cluster_counts.values,
-        color_continuous_scale="Blues",
+        x="cluster_name",
+        y="count",
+        text="count",
+        color="count",
+        color_continuous_scale="Viridis", 
         title="Number of Customers per Cluster"
     )
+
+    fig.update_traces(textposition="outside")
+    fig.update_layout(
+        xaxis_title="Cluster",
+        yaxis_title="Count",
+        plot_bgcolor="#0d1117",
+        paper_bgcolor="#0d1117",
+        font=dict(color="#d0d7de")
+    )
+
     st.plotly_chart(fig, use_container_width=True)
+
 
 
 elif page == "Cluster Overview":
@@ -87,8 +101,15 @@ elif page == "Cluster Overview":
         title="Cluster Distribution (%)",
         hole=0.45,
         color="cluster_name",
-        color_discrete_sequence=px.colors.qualitative.Set3
+        color_discrete_sequence=px.colors.qualitative.Prism 
     )
+
+    fig.update_layout(
+        plot_bgcolor="#0d1117",
+        paper_bgcolor="#0d1117",
+        font=dict(color="#d0d7de")
+    )
+
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("### 📌 Segment Summaries")
@@ -103,16 +124,32 @@ elif page == "Cluster Overview":
 elif page == "Behavioral Heatmap":
     st.title("🔥 Behavioral Feature Heatmap")
 
-    cluster_profile = df.groupby("cluster_name")[numeric_cols].mean().reset_index()
+    cluster_profile = df.groupby("cluster_name")[numeric_cols].mean()
 
     fig = px.imshow(
-        cluster_profile[numeric_cols],
+        cluster_profile,
         x=numeric_cols,
-        y=cluster_profile["cluster_name"],
-        color_continuous_scale="Teal",
+        y=cluster_profile.index,
+        color_continuous_scale="Viridis",   
+        aspect="auto",
         title="Average Feature Values by Cluster"
     )
+
+    fig.update_traces(
+        text=cluster_profile.round(2).astype(str),
+        texttemplate="%{text}",
+        textfont_size=11
+    )
+
+    fig.update_layout(
+        height=600,
+        plot_bgcolor="#0d1117",
+        paper_bgcolor="#0d1117",
+        font=dict(color="#d0d7de")
+    )
+
     st.plotly_chart(fig, use_container_width=True)
+
 
 
 elif page == "Cluster Explorer":
@@ -133,6 +170,14 @@ elif page == "Cluster Explorer":
         x=feature,
         nbins=25,
         color="cluster_name",
-        title=f"{feature} Distribution for {selected}"
+        title=f"{feature} Distribution for {selected}",
+        color_discrete_sequence=px.colors.qualitative.Antique
     )
+
+    fig.update_layout(
+        plot_bgcolor="#0d1117",
+        paper_bgcolor="#0d1117",
+        font=dict(color="#d0d7de")
+    )
+
     st.plotly_chart(fig, use_container_width=True)
